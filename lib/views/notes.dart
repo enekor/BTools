@@ -1,6 +1,8 @@
+import 'package:b_tools/models/btools.dart';
 import 'package:b_tools/utils/data.dart';
 import 'package:b_tools/utils/staticValues.dart';
 import 'package:b_tools/viewWidgets/notesWidgets.dart';
+import 'package:b_tools/views/noteViewer.dart';
 import 'package:flutter/material.dart';
 
 class MainPageNotes extends StatefulWidget {
@@ -33,8 +35,8 @@ class _MainPAgeNotesState extends State<MainPageNotes> {
     BToolsData().writeData();
   }
 
-  void _onOpenNote(String title){
-    
+  void _onOpenNote(Note note){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => NoteViewer(note: note)));
   }
   @override
   Widget build(BuildContext context) {
@@ -54,7 +56,7 @@ class _MainPAgeNotesState extends State<MainPageNotes> {
             children: BToolsData().bTools.notes.map(
             (note) => noteView(
               onDelete: _deleteNote, 
-              onOpen: _deleteNote, 
+              onOpen: _onOpenNote, 
               note: note, 
               theme: Theme.of(context)
             )).toList(),

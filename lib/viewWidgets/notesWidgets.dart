@@ -1,40 +1,42 @@
-import 'dart:js';
-
 import 'package:b_tools/models/btools.dart';
 import 'package:b_tools/utils/staticValues.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-Widget noteView({required Function(String) onDelete, required Function(String) onOpen, required Note note, required ThemeData theme}){
-  return Card(
-    child: Padding(
-      padding: EdgeInsets.all(staticValues.insideCardPadding),
-      child: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              flex:4,
-              child: Padding(
-                padding: EdgeInsets.all(staticValues.innerCardItemsPadding),
-                child: Text(note.title, style: theme.textTheme.titleMedium,),
+Widget noteView({required Function(String) onDelete, required Function(Note) onOpen, required Note note, required ThemeData theme}){
+  return InkWell(
+    onTap: ()=>onOpen(note),
+    child: Card(
+      child: Padding(
+        padding: EdgeInsets.all(staticValues.insideCardPadding),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                flex:4,
+                child: Padding(
+                  padding: EdgeInsets.all(staticValues.innerCardItemsPadding),
+                  child: Text(note.title, style: theme.textTheme.titleMedium,),
+                )
+              ),
+              Expanded(
+                flex:4,
+                child: Padding(
+                  padding: EdgeInsets.all(staticValues.innerCardItemsPadding),
+                  child: note.body == ""
+                    ? Text("Nota sin contenido")
+                    : Text("${note.body.substring(0,15)}...")
+                )
+              ),
+              Expanded(
+                flex:2,
+                child: Padding(
+                  padding: EdgeInsets.all(staticValues.innerCardItemsPadding),
+                  child: IconButton(onPressed: ()=>onDelete(note.title), icon: const Icon(Icons.delete)),
+                )
               )
-            ),
-            Expanded(
-              flex:4,
-              child: Padding(
-                padding: EdgeInsets.all(staticValues.innerCardItemsPadding),
-                child: Text(note.body.isEmpty ? "Nota sin contenido" : note.body, maxLines: 4,),
-              )
-            ),
-            Expanded(
-              flex:2,
-              child: Padding(
-                padding: EdgeInsets.all(staticValues.innerCardItemsPadding),
-                child: IconButton(onPressed: ()=>onDelete(note.title), icon: const Icon(Icons.delete)),
-              )
-            )
-          ],
+            ],
+          ),
         ),
       ),
     ),

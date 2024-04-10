@@ -1,22 +1,45 @@
+import 'package:b_tools/utils/data.dart';
 import 'package:b_tools/viewWidgets/homeWidgets.dart';
+import 'package:b_tools/views/contadores.dart';
+import 'package:b_tools/views/notes.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   Home({super.key});
 
-  RxInt _selected = 0.obs;
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  int _selected = 0;
 
   void _onChangeSelected(int select){
-    _selected.value = select;
+    setState(() {
+      _selected = select;
+    });
+  }
+
+  Widget bodyShow(){
+    Widget ret = Container();
+    
+    if(_selected == 0){
+      ret = const MainPageNotes();
+    }
+    else if(_selected == 1){
+      ret = const MainPageContadores();
+    }
+  
+    return ret;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Obx(()=> Scaffold(
-        bottomNavigationBar: bottomBar(onChange: _onChangeSelected, theme: Theme.of(context), actual: _selected.value),
-        body: bodyShow(page: _selected.value)
-      ),
+    BToolsData().initData();
+
+    return Scaffold(
+        bottomNavigationBar: bottomBar(onChange: _onChangeSelected, theme: Theme.of(context), actual: _selected),
+        body: bodyShow()
     );
   }
 }

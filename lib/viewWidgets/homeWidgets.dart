@@ -20,16 +20,3 @@ Widget bottomBar({required Function(int) onChange, required ThemeData theme, req
   showSelectedLabels: true,
   currentIndex: actual,
 );
-
-Widget bodyShow({required int page}){
-  Widget ret = SizedBox();
-
-  if(page == 0){
-    ret = mainPageNotas();
-  }
-  else if(page == 1){
-    ret = mainPageContadores();
-  }
-
-  return ret;
-}

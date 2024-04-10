@@ -1,10 +1,7 @@
 import 'package:b_tools/home/home.dart';
-import 'package:b_tools/models/btools.dart';
-import 'package:b_tools/utils/mainJsonManager.dart';
 import 'package:flutter/material.dart';
 
 Future main() async{
-  BTools btools = bToolsFromJson(await readFromMainJson());
   runApp(MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(

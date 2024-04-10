@@ -86,3 +86,4 @@ pubspec.lock
 # Ignore all local history of files
 .history
 .ionide
+.vscode/settings.json

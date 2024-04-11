@@ -35,11 +35,15 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    BToolsData().initData();
 
     return Scaffold(
         bottomNavigationBar: bottomBar(onChange: _onChangeSelected, theme: Theme.of(context), actual: _selected),
-        body: bodyShow()
+        body: FutureBuilder(
+          future:BToolsData().initData(),
+          builder: (context, snapshot) => snapshot.hasData
+            ? bodyShow()
+            : CircularProgressIndicator(color: Theme.of(context).primaryColor,),
+        )
     );
   }
 }

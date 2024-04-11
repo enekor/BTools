@@ -13,7 +13,7 @@ class imagePicker{
       final XFile? _image = await _picker.pickImage(source: ImageSource.gallery);
       if(_image != null){
         final Directory appDocumentsDir = await getApplicationDocumentsDirectory();
-        final File file = File(appDocumentsDir.path+"/images/"+_image.name);
+        final File file = await File(appDocumentsDir.path+"/images/"+_image.name).create(recursive: true);
         file.writeAsBytes(await _image.readAsBytes());
 
         return file.path;

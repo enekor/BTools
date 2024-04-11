@@ -14,6 +14,7 @@ class BToolsData{
 
   Future initData() async{
     bTools = bToolsFromJson(await readFromMainJson());
+    return 1;
   }
 
   Future writeData() async{

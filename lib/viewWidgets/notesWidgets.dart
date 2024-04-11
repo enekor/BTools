@@ -25,7 +25,7 @@ Widget noteView({required Function(String) onDelete, required Function(Note) onO
                   padding: EdgeInsets.all(staticValues.innerCardItemsPadding),
                   child: note.body == ""
                     ? Text("Nota sin contenido")
-                    : Text("${note.body.substring(0,15)}...")
+                    : Text(note.body.length>15 ?"${note.body.substring(0,15)}..." : note.body)
                 )
               ),
               Expanded(

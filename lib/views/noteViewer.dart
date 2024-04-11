@@ -19,11 +19,19 @@ Widget CDivider(){
     child: const Divider(),
   );
 }
-TextEditingController body = TextEditingController(text: _note.body);
+
+TextEditingController body = TextEditingController();
 class _NoteViewerState extends State<NoteViewer> {
   @override
   Widget build(BuildContext context) {
+    body.text = _note.body;
+
     return PopScope(
+      onPopInvoked: (_) {
+        BToolsData().bTools.editNote(_note.title, body.text);
+        body.clear();
+        BToolsData().writeData();
+      },
       child: Scaffold(
         appBar: AppBar(
           title: SingleChildScrollView(
@@ -46,7 +54,9 @@ class _NoteViewerState extends State<NoteViewer> {
                       decoration: const InputDecoration(
                         hintText: 'Escribe aquí tu nota...',
                       ),
-                      onChanged: (_)=>BToolsData().bTools.editNote(_note.title, body.text),
+                      onSaved: (_)=>BToolsData().bTools.editNote(_note.title, body.text),
+                      onEditingComplete: ()=>BToolsData().bTools.editNote(_note.title, body.text),
+                      onFieldSubmitted: (_)=>BToolsData().bTools.editNote(_note.title, body.text),
                     ),
                   ),
                 ],

@@ -1,6 +1,7 @@
 import 'package:b_tools/models/btools.dart';
 import 'package:b_tools/utils/data.dart';
 import 'package:b_tools/utils/staticValues.dart';
+import 'package:b_tools/utils/toast.dart';
 import 'package:b_tools/viewWidgets/notesWidgets.dart';
 import 'package:b_tools/views/noteViewer.dart';
 import 'package:flutter/material.dart';
@@ -14,18 +15,15 @@ class MainPageNotes extends StatefulWidget {
 
 class _MainPAgeNotesState extends State<MainPageNotes> {
   void _newNote(String title){
-    setState(() {
-      BToolsData().bTools.createNewNote(title);
-    });
-    Navigator.pop(context);
-    BToolsData().writeData();
-  }
-
-  void _editNote(String title, String text){
-    setState(() {
-      BToolsData().bTools.editNote(title, text);
-    });
-    BToolsData().writeData();
+    if(BToolsData().bTools.existsNoteWithName(title)){
+      showToast(text: "Ya existe una nota con ese título");
+    }else{
+      setState(() {
+        BToolsData().bTools.createNewNote(title);
+      });
+      Navigator.pop(context);
+      BToolsData().writeData();
+    }
   }
 
   void _deleteNote(String title){
@@ -36,7 +34,7 @@ class _MainPAgeNotesState extends State<MainPageNotes> {
   }
 
   void _onOpenNote(Note note){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => NoteViewer(note: note)));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => NoteViewer(note: note))).then((_) => setState((){}));
   }
   @override
   Widget build(BuildContext context) {

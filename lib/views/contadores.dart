@@ -30,6 +30,7 @@ class _MainPageContadoresState extends State<MainPageContadores> {
     setState(() {
       BToolsData().bTools.deleteCounter(count.name);
     });
+    Navigator.pop(context);
     BToolsData().writeData();
   }
 
@@ -52,7 +53,7 @@ class _MainPageContadoresState extends State<MainPageContadores> {
         body: Center(
           child: GridView.count(
             crossAxisCount: 2,
-            children: BToolsData().bTools.counts.map((count) => contadorView(count: count, onTap: _onNavigate, onDelete: _deleteCount, add1: _add1)).toList()
+            children: BToolsData().bTools.counts.map((count) => contadorView(count: count, onTap: _onNavigate, onDelete: _deleteCount, add1: _add1, context: context)).toList()
           ),
         ),
       )

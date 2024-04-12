@@ -11,9 +11,13 @@ class BToolsData{
   BToolsData._internal();
 
   BTools bTools = BTools(counts: [],notes: []);
+  bool buscado = false;
 
   Future initData() async{
-    bTools = bToolsFromJson(await readFromMainJson());
+    if(!buscado){
+      bTools = bToolsFromJson(await readFromMainJson());
+      buscado = true;
+    }
     return 1;
   }
 

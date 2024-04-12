@@ -1,5 +1,6 @@
 import 'package:b_tools/utils/data.dart';
 import 'package:b_tools/viewWidgets/homeWidgets.dart';
+import 'package:b_tools/views/calculator.dart';
 import 'package:b_tools/views/contadores.dart';
 import 'package:b_tools/views/notes.dart';
 import 'package:flutter/material.dart';
@@ -21,13 +22,18 @@ class _HomeState extends State<Home> {
   }
 
   Widget bodyShow(){
-    Widget ret = Container();
-    
-    if(_selected == 0){
-      ret = const MainPageNotes();
-    }
-    else if(_selected == 1){
-      ret = const MainPageContadores();
+    Widget ret = Placeholder();
+
+    switch(_selected){
+      case 0:
+        ret = const MainPageNotes();
+        break;
+      case 1:
+        ret = const MainPageContadores();
+        break;
+      case 2:
+        ret = const Calculator();
+        break;
     }
   
     return ret;
@@ -39,10 +45,10 @@ class _HomeState extends State<Home> {
     return Scaffold(
         bottomNavigationBar: bottomBar(onChange: _onChangeSelected, theme: Theme.of(context), actual: _selected),
         body: FutureBuilder(
-          future:BToolsData().initData(),
+          future: BToolsData().initData(),
           builder: (context, snapshot) => snapshot.hasData
             ? bodyShow()
-            : CircularProgressIndicator(color: Theme.of(context).primaryColor,),
+            : Center(child: CircularProgressIndicator(color: Theme.of(context).primaryColor),)
         )
     );
   }

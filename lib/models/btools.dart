@@ -1,7 +1,7 @@
 
 import 'dart:convert';
 
-BTools bToolsFromJson(String str) => BTools.fromJson(json.decode(str));
+BTools bToolsFromJson(String str) => BTools.fromJson(str);
 
 String bToolsToJson(BTools data) => json.encode(data.toJson());
 
@@ -14,10 +14,16 @@ class BTools {
     required this.counts,
   });
 
-  factory BTools.fromJson(Map<String, dynamic> json) => BTools(
-    notes: List<Note>.from(json["notes"].map((x) => Note.fromJson(x))),
-    counts: List<Count>.from(json["counts"].map((x) => Count.fromJson(x))),
-  );
+  factory BTools.fromJson(String jsonTxt) {
+    if(jsonTxt == ""){
+      return BTools(notes: [],counts: []);
+    }
+    Map<String, dynamic> json = jsonDecode(jsonTxt);
+    return BTools(
+      notes: List<Note>.from(json["notes"].map((x) => Note.fromJson(x))),
+      counts: List<Count>.from(json["counts"].map((x) => Count.fromJson(x))),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
     "notes": List<dynamic>.from(notes.map((x) => x.toJson())),

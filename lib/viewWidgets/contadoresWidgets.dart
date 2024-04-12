@@ -4,9 +4,10 @@ import 'package:b_tools/models/btools.dart';
 import 'package:b_tools/utils/staticValues.dart';
 import 'package:flutter/material.dart';
 
-Widget contadorView({required Count count, required Function(Count) onTap, required Function(Count) onDelete, required Function(Count,int) add1}){
+Widget contadorView({required Count count, required Function(Count) onTap, required Function(Count) onDelete, required Function(Count,int) add1, required BuildContext context}){
   return InkWell(
     onTap: ()=>onTap(count),
+    onLongPress: ()=>deleteDialog(onDelete: onDelete,context: context,count: count),
     child: Card(
       margin: EdgeInsets.all(staticValues.innerCardItemsPadding),
       child: Column(
@@ -47,4 +48,15 @@ void nuevoContador({required BuildContext context, required Function(String,Stri
       TextButton(onPressed: ()=>Navigator.pop(context), child: const Text("Cancelar"))
     ],
   ),);
+}
+
+void deleteDialog({required Function(Count) onDelete, required BuildContext context, required Count count}){
+  showDialog(context: context, builder: (context)=>AlertDialog(
+    title: const Text('Borrar contador'),
+    content: Text('Desea borrar ${count.name}'),
+    actions: [
+      TextButton(onPressed: ()=>onDelete(count), child: const Text('Borrar')),
+      TextButton(onPressed: ()=>Navigator.pop(context), child: const Text('Cancelar'))
+    ],
+  ));
 }

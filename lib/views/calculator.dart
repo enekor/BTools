@@ -1,3 +1,4 @@
+import 'package:b_tools/utils/staticValues.dart';
 import 'package:b_tools/viewWidgets/calculatorWidgets.dart';
 import 'package:flutter/material.dart';
 
@@ -14,9 +15,14 @@ String _calc = "";
 String _head = "";
 class _CalculatorState extends State<Calculator> {
 
+  void setHead(String head){
+    setState(() {
+      _head = head;
+    });
+  }
   void _calculate(){
     setState(() {
-      _head = '';
+      _head = 'hola mundo';
     });
   }
   void _onNumberPressed(String number){
@@ -27,7 +33,7 @@ class _CalculatorState extends State<Calculator> {
       _y += num.toString();
     }
 
-    _head += number.toString();
+    setHead(_head + number.toString());
   }
 
   void _onCalcPressed(String calc){
@@ -40,7 +46,7 @@ class _CalculatorState extends State<Calculator> {
           else{
             _y = _y.startsWith('-') ? _y.substring(1,_y.length-1) : "-$_y";
           }
-          _head = _head.startsWith('-') ? _head.substring(1,_x.length-1) : "-$_head";
+          setHead(_head.startsWith('-') ? _head.substring(1,_x.length-1) : "-$_head");
         }
         break;
       case '+':
@@ -49,7 +55,7 @@ class _CalculatorState extends State<Calculator> {
       case '/':
       case '%':
         _calc = calc;
-        _head = calc;
+        setHead(calc);
         break;
       case ',':
         if(double.tryParse(_head) != null){
@@ -59,7 +65,7 @@ class _CalculatorState extends State<Calculator> {
           else{
             _y = _y.contains(',') ? _y : "$_y,";
           }
-          _head = _head.contains(',') ? _head : "$_head,";
+          setHead(_head.contains(',') ? _head : "$_head,");
         }
         break;
       case '=':
@@ -72,18 +78,29 @@ class _CalculatorState extends State<Calculator> {
         _calc = calc;
         _calculate;
     }
-
-    setState(){}
   }
 
   @override
   Widget build(BuildContext context) {
     return PopScope(
         child: Scaffold(
-          appBar: AppBar(title: Text(_head)),
           body: Center(
-            child: Card.filled(
-              child: calculatorBody(onNumberPressed: _onNumberPressed, onCalcPressed: _onCalcPressed)
+            child: Padding(
+              padding: EdgeInsets.only(top:staticValues.pagePadding*2,bottom: staticValues.pagePadding),
+              child: Column(
+                children: [
+                  Expanded(
+                      flex:1,
+                      child: Text(_head,textAlign: TextAlign.center,style: Theme.of(context).textTheme.titleLarge)
+                  ),
+                  Expanded(
+                    flex:9,
+                    child: Card.filled(
+                      child: calculatorBody(onNumberPressed: _onNumberPressed, onCalcPressed: _onCalcPressed)
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         )

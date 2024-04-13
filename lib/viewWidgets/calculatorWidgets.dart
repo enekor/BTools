@@ -5,34 +5,28 @@ Widget calculatorBody({required Function(String) onNumberPressed, required Funct
   return Column(
     children: [
       Expanded(
-        flex: 1,
-        child: Row(
-          children: [],
-        ),
-      ),
-      Expanded(
         flex:1,
         child: Row(
           children: [
             Expanded(
               flex: 2,
-              child: calculatorButton(text: Text('SIN'), onTap: onCalcPressed('sin')),
+              child: calculatorButton(text: Text('SIN'), onTap: ()=>onCalcPressed('sin')),
             ),
             Expanded(
               flex: 2,
-              child: calculatorButton(text: Text('COS'), onTap: onCalcPressed('cos')),
+              child: calculatorButton(text: Text('COS'), onTap: ()=>onCalcPressed('cos')),
             ),
             Expanded(
               flex: 2,
-              child: calculatorButton(text: Text('TAN'), onTap: onCalcPressed('tan')),
+              child: calculatorButton(text: Text('TAN'), onTap: ()=>onCalcPressed('tan')),
             ),
             Expanded(
               flex: 2,
-              child: calculatorButton(text: FaIcon(FontAwesomeIcons.squareRootVariable), onTap: onCalcPressed('root')),
+              child: calculatorButton(text: FaIcon(FontAwesomeIcons.squareRootVariable), onTap: ()=>onCalcPressed('root')),
             ),
             Expanded(
               flex: 2,
-              child: calculatorButton(text: FaIcon(FontAwesomeIcons.superscript), onTap: onCalcPressed('super')),
+              child: calculatorButton(text: FaIcon(FontAwesomeIcons.superscript), onTap: ()=>onCalcPressed('super')),
             ),
 
           ],

@@ -119,7 +119,7 @@ Widget calculatorBody({required Function(String) onNumberPressed, required Funct
           children: [
             Expanded(
               flex:2,
-              child: calculatorButton(text: Text(","), onTap: ()=>onNumberPressed(',')),
+              child: calculatorButton(text: Text(","), onTap: ()=>onCalcPressed(',')),
             ),
             Expanded(
               flex:2,
@@ -127,7 +127,7 @@ Widget calculatorBody({required Function(String) onNumberPressed, required Funct
             ),
             Expanded(
               flex:2,
-              child: calculatorButton(text: FaIcon(FontAwesomeIcons.plusMinus), onTap: ()=>onNumberPressed('+-')),
+              child: calculatorButton(text: FaIcon(FontAwesomeIcons.plusMinus), onTap: ()=>onCalcPressed('+-')),
             ),
             Expanded(
               flex: 4,

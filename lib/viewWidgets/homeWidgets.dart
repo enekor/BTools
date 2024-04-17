@@ -17,11 +17,11 @@ Widget bottomBar({required Function(int) onChange, required ThemeData theme, req
       label: "Contadores",
       backgroundColor: theme.primaryColor
     ),
-    /*BottomNavigationBarItem(
+    BottomNavigationBarItem(
       icon: const FaIcon(FontAwesomeIcons.calculator),
       label: "Calculadora",
       backgroundColor: theme.primaryColor
-    ),*/
+    ),
   ],
   onTap: onChange,
   showSelectedLabels: true,

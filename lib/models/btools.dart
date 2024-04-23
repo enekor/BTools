@@ -8,26 +8,30 @@ String bToolsToJson(BTools data) => json.encode(data.toJson());
 class BTools {
   List<Note> notes;
   List<Count> counts;
+  List<ToDoItem> todos;
 
   BTools({
     required this.notes,
     required this.counts,
+    required this.todos
   });
 
   factory BTools.fromJson(String jsonTxt) {
     if(jsonTxt == ""){
-      return BTools(notes: [],counts: []);
+      return BTools(notes: [],counts: [], todos: []);
     }
     Map<String, dynamic> json = jsonDecode(jsonTxt);
     return BTools(
       notes: List<Note>.from(json["notes"].map((x) => Note.fromJson(x))),
       counts: List<Count>.from(json["counts"].map((x) => Count.fromJson(x))),
+      todos: List<ToDoItem>.from(json["todo"].map((x)=>ToDoItem.fromJson(x)))
     );
   }
 
   Map<String, dynamic> toJson() => {
     "notes": List<dynamic>.from(notes.map((x) => x.toJson())),
     "counts": List<dynamic>.from(counts.map((x) => x.toJson())),
+    "todos": List<dynamic>.from(todos.map((x)=>x.toJson()))
   };
 
   bool existsCountWithName(String name){
@@ -66,6 +70,18 @@ class BTools {
 
   void deleteNote(String title){
     notes.removeWhere((note) => note.title == title);
+  }
+
+  void createNewTodoItem(String title){
+    todos.add(ToDoItem(title: title,id: todos.length));
+  }
+
+  void changeTodoItemChecked(int id){
+    todos.firstWhere((todo) => todo.id==id).seleccionado = !todos.firstWhere((todo) => todo.id==id).seleccionado;
+  }
+
+  void deleteTodoItem(int id){
+    todos.removeWhere((todo) => todo.id==id);
   }
 }
 
@@ -111,4 +127,29 @@ class Note {
     "title": title,
     "body": body,
   };
+}
+
+class ToDoItem{
+  String title;
+  bool seleccionado;
+  int id;
+
+  ToDoItem({
+    required this.title,
+    this.seleccionado = false,
+    required this.id
+  });
+
+  factory ToDoItem.fromJson(Map<String,dynamic> json)=> ToDoItem(
+    title: json["title"],
+    seleccionado:json["seleccionado"],
+    id:json["id"]
+  );
+
+  Map<String,dynamic> toJson()=>{
+    "title":title,
+    "seleccionado":seleccionado,
+    "id":id
+  };
+
 }

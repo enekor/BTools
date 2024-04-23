@@ -10,7 +10,7 @@ class BToolsData{
 
   BToolsData._internal();
 
-  BTools bTools = BTools(counts: [],notes: []);
+  BTools bTools = BTools(counts: [],notes: [], todos: []);
   bool buscado = false;
 
   Future initData() async{

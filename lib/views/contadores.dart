@@ -1,5 +1,6 @@
 import 'package:b_tools/models/btools.dart';
 import 'package:b_tools/utils/data.dart';
+import 'package:b_tools/utils/staticValues.dart';
 import 'package:b_tools/utils/toast.dart';
 import 'package:b_tools/viewWidgets/contadoresWidgets.dart';
 import 'package:b_tools/views/contadorViewer.dart';
@@ -51,9 +52,24 @@ class _MainPageContadoresState extends State<MainPageContadores> {
       child: Scaffold(
         floatingActionButton: FloatingActionButton.extended(onPressed: ()=>nuevoContador(context: context,onCreate: _newCount),icon: const Icon(Icons.add),label: const Text("Nuevo contador"),),
         body: Center(
-          child: GridView.count(
-            crossAxisCount: 2,
-            children: BToolsData().bTools.counts.map((count) => contadorView(count: count, onTap: _onNavigate, onDelete: _deleteCount, add1: _add1, context: context)).toList()
+          child: Padding(
+            padding: EdgeInsets.all(staticValues.pagePadding),
+            child: BToolsData().bTools.counts.isEmpty
+              ? const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.cancel_outlined),
+                  Text("No hay contadores actualmente")
+                ],
+              )
+              :Card.filled(
+                child: ListView.builder(
+                  itemCount: BToolsData().bTools.counts.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return contadorView(count: BToolsData().bTools.counts[index], onTap: _onNavigate, onDelete: _deleteCount, add1: _add1, context: context);
+                  },
+                ),
+              ),
           ),
         ),
       )

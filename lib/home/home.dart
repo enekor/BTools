@@ -3,6 +3,7 @@ import 'package:b_tools/viewWidgets/homeWidgets.dart';
 import 'package:b_tools/views/calculator.dart';
 import 'package:b_tools/views/contadores.dart';
 import 'package:b_tools/views/notes.dart';
+import 'package:b_tools/views/todo.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -33,6 +34,9 @@ class _HomeState extends State<Home> {
         break;
       case 2:
         ret = const Calculator();
+        break;
+      case 3:
+        ret = const Todos();
         break;
     }
   

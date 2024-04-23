@@ -16,7 +16,7 @@ Future<String> readFromMainJson() async{
       json = await File("${appDocumentsDir.path}/btools.json").readAsString();
     }
     else{
-      BTools t = BTools(counts: [],notes: []);
+      BTools t = BTools(counts: [],notes: [], todos: []);
       json = jsonEncode(t.toJson());
       await File("${appDocumentsDir.path}/btools.json").create();
     }

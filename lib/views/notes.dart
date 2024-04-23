@@ -43,22 +43,35 @@ class _MainPAgeNotesState extends State<MainPageNotes> {
     floatingActionButton: FloatingActionButton.extended(
       onPressed: ()=>nuevaNotaView(onCreate: _newNote,context: context),
       label: const Text('Nueva nota'),
-      icon: const Icon(Icons.add),
+      icon: const Icon(Icons.note_add),
       
     ),
     body: Padding(
       padding: EdgeInsets.all(staticValues.pagePadding),
       child: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: BToolsData().bTools.notes.map(
-            (note) => noteView(
-              onDelete: _deleteNote, 
-              onOpen: _onOpenNote, 
-              note: note, 
-              theme: Theme.of(context)
-            )).toList(),
-          ),
+        child: Padding(
+          padding: EdgeInsets.all(staticValues.pagePadding),
+          child: BToolsData().bTools.notes.isEmpty
+            ? const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.cancel_outlined),
+                Text("No hay notas actualmente")
+              ],
+            )
+            :Card.filled(
+              child: ListView.builder(
+                itemCount: BToolsData().bTools.notes.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return noteView(
+                    onDelete: _deleteNote, 
+                    onOpen: _onOpenNote, 
+                    note: BToolsData().bTools.notes[index],
+                    theme: Theme.of(context)
+                  );
+                },
+              ),
+            ),
         ),
       ),
     ),

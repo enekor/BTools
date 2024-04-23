@@ -63,12 +63,21 @@ class _MainPageContadoresState extends State<MainPageContadores> {
                 ],
               )
               :Card.filled(
-                child: ListView.builder(
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                  ),
                   itemCount: BToolsData().bTools.counts.length,
                   itemBuilder: (BuildContext context, int index) {
                     return contadorView(count: BToolsData().bTools.counts[index], onTap: _onNavigate, onDelete: _deleteCount, add1: _add1, context: context);
                   },
                 ),
+                /*child: ListView.builder(
+                  itemCount: BToolsData().bTools.counts.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return contadorView(count: BToolsData().bTools.counts[index], onTap: _onNavigate, onDelete: _deleteCount, add1: _add1, context: context);
+                  },
+                ),*/
               ),
           ),
         ),

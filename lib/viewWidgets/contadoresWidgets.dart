@@ -15,7 +15,7 @@ Widget contadorView({required Count count, required Function(Count) onTap, requi
         children: [
           Text(count.name),
           count.image != ""
-            ?Image.file(File(count.image),height: 50,width: 50,)
+            ?Image.file(File(count.image),height: 100,width: 100,)
             :Icon(Icons.no_photography,size:50), 
           Text(count.value.toStringAsFixed(0)),
           Row(

@@ -53,9 +53,10 @@ class _ContadorViewerState extends State<ContadorViewer> {
                    GestureDetector(
                     onTap: _onImageChange,
                     child:  _count.image == ""
-                      ? const Icon(Icons.no_photography, size: 200,)
-                      : Image.file(File(_count.image),height: 100,width: 100,),
+                      ? const Icon(Icons.no_photography, size: 300,)
+                      : Image.file(File(_count.image),height: 300,width: 300,),
                    ),
+                   SizedBox(height: 100,),
                     Text(_count.value.toStringAsFixed(0)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

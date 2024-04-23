@@ -3,31 +3,41 @@ import 'package:b_tools/utils/staticValues.dart';
 import 'package:flutter/material.dart';
 
 Widget todoItemView({required ToDoItem todo, required Function(int) onCheck, required Function(int) onDelete}){
-  return Padding(
-    padding: EdgeInsets.all(staticValues.insideCardPadding),
-    child: Column(
-      children: [
-        Row(
-          children: [
-            Expanded(
-              flex:1,
-              child: Checkbox(value: todo.seleccionado, onChanged: (_)=>onCheck(todo.id))
-            ),
-            Expanded(
-              flex:9,
-              child: Center(child: Text(
-                todo.title,
-                style: TextStyle(
-                  decoration: todo.seleccionado
-                  ?TextDecoration.lineThrough
-                  :TextDecoration.none
-                ),
-              ))
-            )
-          ],
-        ),
-        const Divider()
-      ],
+  return Dismissible(
+    key: Key(todo.title),
+    onDismissed: (direction){
+      if(direction == DismissDirection.endToStart){
+        onDelete(todo.id);
+      }
+    },
+    background: Container(color: Colors.red,child: const Row(mainAxisAlignment: MainAxisAlignment.end,children: [Icon(Icons.delete)],),),
+    direction: DismissDirection.endToStart,
+    child: Padding(
+      padding: EdgeInsets.all(staticValues.insideCardPadding),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                flex:1,
+                child: Checkbox(value: todo.seleccionado, onChanged: (_)=>onCheck(todo.id))
+              ),
+              Expanded(
+                flex:9,
+                child: Center(child: Text(
+                  todo.title,
+                  style: TextStyle(
+                    decoration: todo.seleccionado
+                    ?TextDecoration.lineThrough
+                    :TextDecoration.none
+                  ),
+                ))
+              )
+            ],
+          ),
+          const Divider()
+        ],
+      ),
     ),
   );
 }

@@ -17,6 +17,7 @@ class _TodosState extends State<Todos> {
     setState(() {
       checked = !checked;
     });
+    BToolsData().writeData();
   }
   void _onCreate(String title){
     setState(() {
@@ -24,18 +25,21 @@ class _TodosState extends State<Todos> {
     });
 
     Navigator.pop(context);
+    BToolsData().writeData();
   }
 
   void _onDelete(int id){
     setState(() {
       BToolsData().bTools.deleteTodoItem(id);
     });
+      BToolsData().writeData();
   }
 
   void _onCheck(int id){
     setState(() {
       BToolsData().bTools.changeTodoItemChecked(id);
     });
+    BToolsData().writeData();
   }
 
   @override
